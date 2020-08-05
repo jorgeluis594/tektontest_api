@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_08_05_002519) do
     t.bigint "manager_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "activated"
+    t.boolean "activated", default: true
     t.index ["manager_id"], name: "index_employees_on_manager_id"
   end
 
