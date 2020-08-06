@@ -10,9 +10,5 @@ RSpec.describe Employee, type: :model do
       should validate_presence_of(:birth_date)
       should validate_presence_of(:position)
     end
-
-    it 'Validate relations' do
-      should have_many(:expenses)
-    end
   end
 end

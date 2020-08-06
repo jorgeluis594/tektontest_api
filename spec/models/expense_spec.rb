@@ -10,9 +10,5 @@ RSpec.describe Expense, type: :model do
       should validate_presence_of(:currency_type)
       should validate_presence_of(:description)
     end
-
-    it 'Validate relations' do
-      should belong_to(:employee)
-    end
   end
 end

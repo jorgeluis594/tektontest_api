@@ -1,6 +1,5 @@
 class Employee < ApplicationRecord
   has_many :subordinates, class_name: 'Employee', foreign_key: 'manager_id'
-  has_many :expenses
 
   belongs_to :manager, class_name: 'Employee', optional: true
 

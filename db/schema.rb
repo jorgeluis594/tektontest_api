@@ -36,8 +36,6 @@ ActiveRecord::Schema.define(version: 2020_08_05_002519) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "employee_id"
-    t.index ["employee_id"], name: "index_expenses_on_employee_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -65,7 +63,6 @@ ActiveRecord::Schema.define(version: 2020_08_05_002519) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "expenses", "employees"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "products"
 end

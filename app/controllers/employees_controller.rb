@@ -1,9 +1,4 @@
 class EmployeesController < ApplicationController
-
-  rescue_from ActiveRecord::RecordInvalid do |e|
-    send_error(e.message, :unprocessable_entity)
-  end
-
   def index
     @employees = Employee.where(activated: true)
     send_success(@employees)
