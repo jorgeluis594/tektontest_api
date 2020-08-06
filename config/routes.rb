@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   resources :employees, only: [:index, :show, :create]
   resources :expenses, only: [:index, :show, :create]
+  resources :invoices, only: [:index, :show, :create]
 end
