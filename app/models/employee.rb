@@ -9,7 +9,15 @@ class Employee < ApplicationRecord
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :activated, inclusion: { in: [true, false] }
   validate :valid_position?
+
+  def self.delete(id)
+    employee = Employee.find(id)
+    employee.activated = false;
+    employee.save!
+  end
+
   private
+
   def valid_position?
     if(self.position == "collaborator" && !Employee.exists?(manager_id) )
       self.errors[:base] << "Manager must be exist"
