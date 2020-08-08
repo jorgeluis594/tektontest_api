@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   end
 
   rescue_from NoMethodError do |e|
-    send_error("Products can't be blank", :unprocessable_entity)
+   send_error("Products can't be blank", :unprocessable_entity)
   end
 
   def index
@@ -14,7 +14,25 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params['id'])
-    send_success(@invoice)
+    list_products = @invoice.products
+    invoice_items = @invoice.invoice_items
+    products = list_products.map do |product|
+      item = invoice_items.find {|item| item["product_id"] == product["id"]}
+      {
+          product_id: product["id"],
+          product_name: product["name"],
+          product_price: product["price"],
+          product_quantity:  item.quantity,
+          product_currency_type: product["currency_type"],
+          product_total_price: item["quantity"]*product["price"]
+      }
+    end
+    send_success({
+                     id: @invoice.id,
+                     client: @invoice.client,
+                     ruc: @invoice.ruc,
+                     products: products
+                 })
   end
 
   def create
@@ -48,7 +66,7 @@ class InvoicesController < ApplicationController
             product_price: item['price'],
             product_quantity: product['quantity'],
             product_currency_type: item['currency_type'],
-            product_total_price: "#{(item['price']*product['quantity'].to_i)} #{item['currency_type']}"
+            product_total_price: item['price']*product['quantity'].to_i
         }
       end
   end
